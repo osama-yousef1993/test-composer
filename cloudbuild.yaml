@@ -1,0 +1,29 @@
+# file structure for cloud build
+# ├── cloudbuild.yaml for cloud build trigger 
+# ├── dags for python files and jobs
+# │   └── my_dag.py ... etc
+# └── plugins for airflow plugins
+
+
+
+steps:
+- name: ubuntu
+  args: ['bash', '-c', "echo '$COMMIT_SHA' > REVISION.txt"] # for debugging we can remove this step
+- name: gcr.io/cloud-builders/gsutil
+  args:
+    - '-m' # enables parallel uploading
+    - 'rsync'
+    - '-d' # performs deletes on the destination to make it match the source
+    - '-r' # recurse into directories
+    - 'dags' # source directory
+    - 'gs://${_GCS_BUCKET}/dags' # destination directory  - {_GCS_BUCKET} Substitution Variable from cloud build
+# - name: gcr.io/cloud-builders/gsutil
+#   args:
+#     - '-m'
+#     - 'rsync'
+#     - '-d'
+#     - '-r'
+#     - 'plugins'
+#     - 'gs://${_GCS_BUCKET}/plugins' # you can place airflow plugins for your environment to leverage
+
+
