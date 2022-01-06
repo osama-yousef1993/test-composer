@@ -16,7 +16,7 @@ steps:
     - '-d' # performs deletes on the destination to make it match the source
     - '-r' # recurse into directories
     - 'dags' # source directory
-    - 'gs://${_GCS_BUCKET}/dags' # destination directory  - {_GCS_BUCKET} Substitution Variable from cloud build
+    - 'gs://us-east4-composer-test-fbc6438a-bucket/dags' # destination directory  - {_GCS_BUCKET} Substitution Variable from cloud build
 # - name: gcr.io/cloud-builders/gsutil
 #   args:
 #     - '-m'
