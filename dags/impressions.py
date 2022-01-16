@@ -16,12 +16,12 @@ bash_exec = f"{DAGS_FOLDER}/scripts/batch.sh " + ' -d ' + \
 
 default_args = {
     'owner': 'airflow',
-    'start_date': dt.datetime(2021, 12, 1),
+    'start_date': dt.datetime(2021, 11, 30, 12, 0, 0),
     'concurrency': Variable.get("MM_Logs_Concurrency"),
     'retries': 3,
 }
 
-with DAG('at_datalake_staging' + target_type,
+with DAG('at_datalake_staging_' + target_type,
          default_args=default_args,
          schedule_interval='@daily',
          catchup=True
