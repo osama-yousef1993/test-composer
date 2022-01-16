@@ -6,7 +6,7 @@ from airflow.models import Variable
 from airflow.operators.bash_operator import BashOperator
 
 target_type = 'attributed-events'
-target_bucket = Variable.get("MediaMath/log-level")
+target_bucket = Variable.get("MediaMath")
 target_directory = target_bucket + target_type + '/' + \
     '{{ macros.ds_format(macros.ds_add(ds, -1), "%Y-%m-%d", "%Y/%m/%d") }}'
 
