@@ -6,7 +6,7 @@ from airflow.models import Variable
 from airflow.operators.bash_operator import BashOperator
 
 target_type = 'attributed-events'
-target_bucket = Variable.get("MM_Logs_Bucket")
+target_bucket = Variable.get("MediaMath/log-level")
 target_directory = target_bucket + target_type + '/' + \
     '{{ macros.ds_format(macros.ds_add(ds, -1), "%Y-%m-%d", "%Y/%m/%d") }}'
 
@@ -17,11 +17,10 @@ bash_exec = f"{DAGS_FOLDER}/scripts/batch.sh " + ' -d ' + \
 default_args = {
     'owner': 'airflow',
     'start_date': dt.datetime(2021, 11, 16, 7, 0, 0),
-    'concurrency': Variable.get("MM_Logs_Concurrency"),
     'retries': 3,
 }
 
-with DAG('MM_logs_' + target_type,
+with DAG('at_datalake_staging' + target_type,
          default_args=default_args,
          schedule_interval='@daily',
          catchup=True
