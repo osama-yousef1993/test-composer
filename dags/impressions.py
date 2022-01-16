@@ -16,7 +16,7 @@ bash_exec = f"{DAGS_FOLDER}/scripts/batch.sh " + ' -d ' + \
 
 default_args = {
     'owner': 'airflow',
-    'start_date': dt.datetime(2021, 11, 30, 12, 0, 0),
+    'start_date': dt.datetime(2021, 12, 1, 12, 0, 0),
     'concurrency': Variable.get("MM_Logs_Concurrency"),
     'retries': 3,
 }
